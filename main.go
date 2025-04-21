@@ -1,13 +1,18 @@
 package main
 
 import (
-	"fmt"
+	"os"
 
-	"github.com/SzRoland13/todo-cli/todo"
+	"github.com/SzRoland13/todo-cli/handlers"
 )
 
 func main() {
-	var t todo.Todo
+	args := os.Args[1:]
 
-	fmt.Println(t)
+	if len(args) == 0 {
+		handlers.HandleGeneral()
+		return
+	}
+
+	handlers.RunCommand(args[0])
 }

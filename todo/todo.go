@@ -3,11 +3,13 @@ package todo
 import "time"
 
 type Todo struct {
-	title       string
-	description string
-	priority    Priority
-	progress    Progress
-	dueDate     time.Time
+	ID          uint      `json:"id"`
+	Title       string    `json:"title"`
+	Description string    `json:"description"`
+	Priority    Priority  `json:"priority"`
+	Progress    Progress  `json:"progress"`
+	DueDate     time.Time `json:"due_date"`
+	IsDeleted   bool      `json:"isDeleted"` //Added for soft deletion
 }
 
 type Priority int
