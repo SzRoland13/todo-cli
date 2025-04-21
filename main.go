@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strconv"
 
 	"github.com/SzRoland13/todo-cli/handlers"
 )
@@ -9,10 +10,7 @@ import (
 func main() {
 	args := os.Args[1:]
 
-	if len(args) == 0 {
-		handlers.HandleGeneral()
-		return
-	}
+	val, _ := strconv.ParseBool(args[1])
 
-	handlers.RunCommand(args[0])
+	handlers.RunCommand(args[0], val)
 }
