@@ -52,17 +52,22 @@ func HandleGeneral() {
 
 	cmd = strings.TrimSpace(cmd)
 
-	RunCommand(cmd)
+	RunCommand(cmd, false)
 
 }
 
-func HandleList() {
-	todo.ListTodos()
+func HandleList(showAll bool) {
+	if showAll {
+		todo.ListAllTodos()
+	} else {
+		todo.ListActiveTodos()
+	}
 }
 
-func HandleUpdate() {
+func HandleUpdate(showAll bool) {
 	fmt.Println("Choose which Todo to update")
-	todo.ListTodos()
+
+	HandleList(showAll)
 
 	reader := bufio.NewReader(os.Stdin)
 
@@ -74,7 +79,7 @@ func HandleUpdate() {
 
 	ID, err := strconv.ParseUint(idStr, 10, 64)
 
-	if err != nil || !isIdInList(uint(ID)) {
+	if err != nil || !isIdInList(uint(ID), showAll) {
 		fmt.Println("Invalid ID was passed! Try again with a valid ID.")
 		return
 	}
@@ -147,7 +152,7 @@ func HandleUpdate() {
 
 }
 
-func isIdInList(ID uint) bool {
+func isIdInList(ID uint, showAll bool) bool {
 	for _, element := range todo.GetTodos() {
 		if element.ID == ID {
 			return true
@@ -171,9 +176,9 @@ Example:
 `)
 }
 
-func HandleDelete() {
-	fmt.Println("Choose which Todo to update")
-	todo.ListTodos()
+func HandleDelete(showAll bool) {
+	fmt.Println("Choose which Todo to delete")
+	HandleList(showAll)
 
 	reader := bufio.NewReader(os.Stdin)
 
@@ -185,7 +190,7 @@ func HandleDelete() {
 
 	ID, err := strconv.ParseUint(idStr, 10, 64)
 
-	if err != nil || !isIdInList(uint(ID)) {
+	if err != nil || !isIdInList(uint(ID), showAll) {
 		fmt.Println("Invalid ID was passed! Try again with a valid ID.")
 		return
 	}

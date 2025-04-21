@@ -1,20 +1,18 @@
 package handlers
 
-import "fmt"
-
-func RunCommand(cmd string) {
+func RunCommand(cmd string, showAll bool) {
 	switch cmd {
 	case "add":
 		HandleAdd()
 	case "list":
-		HandleList()
+		HandleList(showAll)
 	case "update":
-		HandleUpdate()
+		HandleUpdate(showAll)
 	case "delete":
-		HandleDelete()
+		HandleDelete(showAll)
 	case "help":
 		HandleHelp()
 	default:
-		fmt.Println("Unkown command. Type `help` for usage")
+		HandleGeneral()
 	}
 }

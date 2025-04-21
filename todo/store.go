@@ -42,11 +42,17 @@ func AddTodo(t Todo) {
 	todos = append(todos, t)
 }
 
-func ListTodos() {
+func ListActiveTodos() {
 	for _, t := range todos {
-		if !t.IsDeleted {
+		if !t.IsDeleted || t.Progress != 4 {
 			fmt.Printf("%d. %s: %s [%s] (%s) 📅 %s\n", t.ID, t.Title, t.Description, t.Priority.String(), t.Progress.String(), t.DueDate.Format("2006-01-02"))
 		}
+	}
+}
+
+func ListAllTodos() {
+	for _, t := range todos {
+		fmt.Printf("%d. %s: %s [%s] (%s) 📅 %s\n", t.ID, t.Title, t.Description, t.Priority.String(), t.Progress.String(), t.DueDate.Format("2006-01-02"))
 	}
 }
 
